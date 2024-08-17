@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { ethers } from 'ethers';
-
 function Wallet() {
 	const [account, setAccount] = useState(null);
 	const [balance, setBalance] = useState(null);
 	const [provider, setProvider] = useState(null);
 	const [network, setNetwork] = useState(null);
-
+	const [price, setPrice] = useState(null);
 	useEffect(() => {
 		if (window.ethereum) {
 			initializeProvider();
@@ -27,6 +27,16 @@ function Wallet() {
 			connectWallet();
 		}
 	}, [provider]);
+
+	const getTokenPrice = async (tokenId) => {
+		try {
+			const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${tokenId}&vs_currencies=usd`);
+			setPrice(response.data[tokenId].usd);
+		} catch (error) {
+			console.error("Error fetching price data:", error);
+			return null;
+		}
+	}
 
 	const initializeProvider = () => {
 		const newProvider = new ethers.providers.Web3Provider(window.ethereum);
@@ -92,6 +102,7 @@ function Wallet() {
 					<p>Connected account: {account}</p>
 					<p>Balance: {balance} ETH</p>
 					<p>Current network: {network}</p>
+					<p>Current Price: {price}</p>
 					<div>
 						<button onClick={() => refreshBalance(account)}>Refresh Balance</button>
 					</div>
