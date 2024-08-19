@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	Paper,
+	Button,
+	Typography
+} from '@mui/material';
 import axios from 'axios';
 import { ethers } from 'ethers';
 function Wallet() {
@@ -99,23 +109,60 @@ function Wallet() {
 
 	return (
 		<>
-			{account ? (
-				<div>
-					<p>Connected account: {account}</p>
-					<p>Balance: {balance} ETH</p>
-					<p>Current network: {network}</p>
-					<div>
-						<button onClick={() => refreshBalance(account)}>Refresh Balance</button>
+			<div className='flex w-full h-min-30'>
+				<Typography sx={{ color: "white", width: "50%", borderRight: "solid 5px" }} variant="h2" align="center">Wallet Information</Typography>
+				{account ? (
+					<TableContainer component={Paper} sx={{ backgroundColor: "black", color: "white", width: "50%" }}>
+						<Table>
+							{/* <TableHead>
+								<TableRow>
+									<TableCell colSpan={2}>
+									</TableCell>
+								</TableRow>
+							</TableHead> */}
+							<TableBody>
+								<TableRow>
+									<TableCell variant="head">
+										<Typography sx={{ color: "white" }} variant="h6">Connected Account</Typography>
+									</TableCell>
+									<TableCell sx={{ color: "white" }}>{account}</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell variant="head">
+										<Typography sx={{ color: "white" }} variant="h6">Balance</Typography>
+									</TableCell>
+									<TableCell sx={{ color: "white" }} >{balance} ETH</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell variant="head">
+										<Typography sx={{ color: "white" }} variant="h6">Current Network</Typography>
+									</TableCell>
+									<TableCell sx={{ color: "white" }}>{network}</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell colSpan={2} align="center">
+										<Button sx={{ color: "white" }} variant="contained" onClick={() => refreshBalance(account)}>
+											Refresh Balance
+										</Button>
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell colSpan={2} align="center">
+										<Button sx={{ color: "white" }} variant="contained" color="error" onClick={disconnectWallet}>
+											Disconnect Wallet
+										</Button>
+									</TableCell>
+								</TableRow>
+							</TableBody>
+						</Table>
+					</TableContainer>
+				) : (
+					<div className='mt-5 mb-5 w-half ml-auto mr-auto'>
+						<Typography variant="h5" sx={{ marginBottom: "1rem" }}> Looks like you haven't connected your Wallet! </Typography>
+						<Button onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
 					</div>
-					<div className='mt-5 mb-5'>
-						<Button onClick={disconnectWallet} variant="contained" color='error'>Disconnect Wallet</Button>
-					</div>
-				</div>
-			) : (
-				<div className='mt-5'>
-					<Button  onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
-				</div>
-			)}
+				)}
+			</div>
 		</>
 	);
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { Typography } from '@mui/material';
 
 const columns = [
   { field: 'index', headerName: 'ID', width: 200 },
@@ -75,8 +76,8 @@ export default function CryptoTable() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div style={{ height: 650, width: '100%', color: 'white' }}>
-      <h1>Top 50 Cryptocurrencies</h1>
+    <div style={{ height: 690, width: '100%', color: 'white', marginTop: "1rem", marginBottom: "1rem"}}>
+      <Typography variant='h2' sx={{marginBottom: "1rem"}}>Top 50 Cryptocurrencies</Typography>
       <div style={{ height: 'calc(100% - 60px)', width: '100%' }}>
         <DataGrid
           rows={cryptoData}

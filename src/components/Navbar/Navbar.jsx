@@ -19,14 +19,14 @@ const Navbar = () => {
     return (
         <>
             <div className='w-full h-20 bg-black flex items-center'>
-                <div className='ml-5'>
+                <div className='ml-5 text-white'>
                     Ethreum
                 </div>
                 <div className='flex justify-end w-full h-full items-center'>
                     {user ? (
                         <>
                             <div className='mr-5 '>
-                                Shashvat
+                                Welcome, Shashvat
                             </div>
                             <div className='mr-5'>
                                 <Button onClick={handleLogout} variant="contained">Sign Out</Button>
