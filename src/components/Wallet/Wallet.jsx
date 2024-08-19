@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
 import axios from 'axios';
 import { ethers } from 'ethers';
 function Wallet() {
@@ -54,6 +55,7 @@ function Wallet() {
 				await getNetwork();
 			} catch (error) {
 				console.error("Failed to connect wallet:", error);
+				alert('Please integrate your metamask first');
 			}
 		} else {
 			console.log("Provider not initialized.");
@@ -96,24 +98,25 @@ function Wallet() {
 	};
 
 	return (
-		<div>
+		<>
 			{account ? (
 				<div>
 					<p>Connected account: {account}</p>
 					<p>Balance: {balance} ETH</p>
 					<p>Current network: {network}</p>
-					<p>Current Price: {price}</p>
 					<div>
 						<button onClick={() => refreshBalance(account)}>Refresh Balance</button>
 					</div>
-					<div>
-						<button onClick={disconnectWallet}>Disconnect Wallet</button>
+					<div className='mt-5 mb-5'>
+						<Button onClick={disconnectWallet} variant="contained" color='error'>Disconnect Wallet</Button>
 					</div>
 				</div>
 			) : (
-				<button onClick={initializeProvider}>Connect MetaMask</button>
+				<div className='mt-5'>
+					<Button  onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
+				</div>
 			)}
-		</div>
+		</>
 	);
 }
 
