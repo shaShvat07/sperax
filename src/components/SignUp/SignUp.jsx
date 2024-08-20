@@ -24,14 +24,16 @@ const SignUp = () => {
     <Container maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          position: 'absolute',
+          top: '200px',
+          height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           color: 'white',
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h2">
           Sign up
         </Typography>
         <Box component="form" onSubmit={handleSignUp} sx={{ mt: 1 }}>

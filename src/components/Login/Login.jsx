@@ -27,13 +27,15 @@ const Login = () => {
     <Container maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          position: 'absolute',
+          top: '200px',
+          height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h2">
           Log in
         </Typography>
         <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
