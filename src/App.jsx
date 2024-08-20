@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import AuthProvider from './utils/AuthProvider'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
-import Transaction from './components/Transaction/Transaction' 
+import Transaction from './components/Transaction/Transaction'   
 import './App.css'
 
 function App() {
@@ -22,6 +22,8 @@ function App() {
                   <Home />
               }
             />
+            <Route path="/transaction" element={<Transaction />} />
+            <Route path="/watchlist" element={<Transaction />} />
           </Routes>
         </Router>
       </AuthProvider>

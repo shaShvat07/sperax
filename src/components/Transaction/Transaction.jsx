@@ -10,7 +10,7 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -18,6 +18,7 @@ const theme = createTheme({
 });
 
 function Transaction() {
+  const navigate = useNavigate();
   const INFURA_PROJECT_ID = import.meta.env.VITE_APP_INFURA_PROJECT_ID;
   const PRIVATE_KEY = import.meta.env.VITE_APP_PRIVATE_KEY;
   const metaMaskProvider = new ethers.providers.Web3Provider(window.ethereum);
@@ -81,63 +82,86 @@ function Transaction() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        <Box mb={4}>
-          <Typography variant="h3" gutterBottom>
-            Press one of the buttons to find out the latest block number:
-          </Typography>
-          <Box display="flex" justifyContent="center" gap={2}>
-            <Button variant="contained" onClick={handleInfuraButton}>
-              InfuraProvider
-            </Button>
-            <Button variant="contained" onClick={handleMetaMaskButton}>
-              Web3Provider
-            </Button>
-            <Typography variant="h6">{currentBlockNumber}</Typography>
+      <Container maxWidth="xl" sx={{ py: 4, mt: 10 }}>
+        <Box flex={1} mr={4}>
+          <Box mb={4}>
+            <Typography variant="h3" gutterBottom>
+              Press one of the buttons to find out the latest block number:
+            </Typography>
+            <Box display="flex" justifyContent="center" gap={2}>
+              <Button variant="contained" onClick={handleInfuraButton}>
+                InfuraProvider
+              </Button>
+              <Button variant="contained" onClick={handleMetaMaskButton}>
+                Web3Provider
+              </Button>
+              <Typography variant="h6">{currentBlockNumber}</Typography>
+            </Box>
           </Box>
-        </Box>
+          <Box sx={{ display: 'flex', width: '100%' }}>
+            {/* Web3 Component */}
+            <Box mb={4} sx={{ width: '48%' }}>
+              <Typography variant="h3" gutterBottom>
+                Fill out the form to send a transaction via Web3Provider:
+              </Typography>
+              <Box component="form" onSubmit={handleWebTransactionSubmit}>
+                <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+                  <InputLabel htmlFor="web-transaction-address">Recipient Address</InputLabel>
+                  <OutlinedInput sx={{
+                    backgroundColor: "rgba(255, 255, 255, 0.12)",
+                    backdropFilter: "blur(5px)"
+                  }} id="web-transaction-address" name="address" label="Recipient Address" />
+                </FormControl>
+                <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+                  <InputLabel htmlFor="web-transaction-amount">Amount (ETH)</InputLabel>
+                  <OutlinedInput sx={{
+                    backgroundColor: "rgba(255, 255, 255, 0.12)",
+                    backdropFilter: "blur(5px)"
+                  }} id="web-transaction-amount" name="amount" label="Amount (ETH)" />
+                </FormControl>
+                <Button type="submit" variant="contained" fullWidth>
+                  <Typography variant="h5">Send via Web3Provider</Typography>
+                </Button>
+              </Box>
+              <Typography variant="body1">{webTransactionSent}</Typography>
+            </Box>
 
-        <Box mb={4}>
-          <Typography variant="h3" gutterBottom>
-            Fill out the form to send a transaction via Web3Provider:
-          </Typography>
-          <Box component="form" onSubmit={handleWebTransactionSubmit}>
-            <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-              <InputLabel htmlFor="web-transaction-address">Recipient Address</InputLabel>
-              <OutlinedInput id="web-transaction-address" name="address" label="Recipient Address" />
-            </FormControl>
-            <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-              <InputLabel htmlFor="web-transaction-amount">Amount (ETH)</InputLabel>
-              <OutlinedInput id="web-transaction-amount" name="amount" label="Amount (ETH)" />
-            </FormControl>
-            <Button type="submit" variant="contained" fullWidth>
-              Send w/ Web3Provider
-            </Button>
-          </Box>
-          <Typography variant="body1">{webTransactionSent}</Typography>
-        </Box>
 
-        <Box mb={4}>
-          <Typography variant="h3" gutterBottom>
-            Fill out the form to send a transaction via InfuraProvider:
-          </Typography>
-          <Box component="form" onSubmit={handleInfuraTransactionSubmit}>
-            <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-              <InputLabel htmlFor="infura-transaction-address">Recipient Address</InputLabel>
-              <OutlinedInput id="infura-transaction-address" name="address" label="Recipient Address" />
-            </FormControl>
-            <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-              <InputLabel htmlFor="infura-transaction-amount">Amount (ETH)</InputLabel>
-              <OutlinedInput id="infura-transaction-amount" name="amount" label="Amount (ETH)" />
-            </FormControl>
-            <Button type="submit" variant="contained" fullWidth>
-              Send w/ InfuraProvider
-            </Button>
+            {/* Infura Component */}
+            <Box flex={1} sx={{ width: '48%' }}>
+              <Box mb={4} ml={8}>
+                <Typography variant="h3" gutterBottom>
+                  Fill out the form to send a transaction via InfuraProvider:
+                </Typography>
+                <Box component="form" onSubmit={handleInfuraTransactionSubmit}>
+                  <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+                    <InputLabel htmlFor="infura-transaction-address">Recipient Address</InputLabel>
+                    <OutlinedInput sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.12)",
+                      backdropFilter: "blur(5px)"
+                    }} id="infura-transaction-address" name="address" label="Recipient Address" />
+                  </FormControl>
+                  <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+                    <InputLabel htmlFor="infura-transaction-amount">Amount (ETH)</InputLabel>
+                    <OutlinedInput sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.12)",
+                      backdropFilter: "blur(5px)"
+                    }} id="infura-transaction-amount" name="amount" label="Amount (ETH)" />
+                  </FormControl>
+                  <Button type="submit" variant="contained" fullWidth>
+                    <Typography variant="h5">Send via InfuraProvider</Typography>
+                  </Button>
+                </Box>
+                <Typography variant="body1">{infuraTransactionSent}</Typography>
+              </Box>
+            </Box>
           </Box>
-          <Typography variant="body1">{infuraTransactionSent}</Typography>
         </Box>
       </Container>
-    </ThemeProvider>
+      <Button type="submit" variant="contained" onClick={() => {navigate('/')}}>
+        <Typography variant="h5">Back Home</Typography>
+      </Button>
+    </ThemeProvider >
   );
 }
 
