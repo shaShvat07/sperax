@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from "../../utils/AuthProvider";
 import { Button } from '@mui/material';
 const Navbar = () => {
-    const { user } = useAuth();
-    // console.log(user);
     const { auth, signOut } = useAuth();
-
+    console.log(auth);
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
@@ -23,7 +21,7 @@ const Navbar = () => {
                     Ethreum
                 </div>
                 <div className='flex justify-end w-full h-full items-center'>
-                    {user ? (
+                    {auth ? (
                         <>
                             <div className='mr-5 '>
                                 Welcome, Shashvat

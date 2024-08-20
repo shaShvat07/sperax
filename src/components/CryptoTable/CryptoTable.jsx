@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Typography } from '@mui/material';
-
+import { Typography, Switch, FormControlLabel } from '@mui/material';
+import { supabase } from "../../utils/supabase";
+import WatchlistButton from '../WatchlistButton/WatchlistButton';
 const columns = [
   { field: 'index', headerName: 'ID', width: 200 },
   {
@@ -39,8 +40,21 @@ const columns = [
       }
       return 'N/A';
     },
-  }
+  },
+  {
+    field: 'watchlist',
+    headerName: 'Watchlist',
+    width: 200,
+    renderCell: (params) => (
+      <div>
+          {params.value}
+         <WatchlistButton />
+      </div>
+    ),
+  },
 ];
+
+
 
 export default function CryptoTable() {
   const [cryptoData, setCryptoData] = React.useState([]);
@@ -76,8 +90,8 @@ export default function CryptoTable() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div style={{ height: 690, width: '100%', color: 'white', marginTop: "1rem", marginBottom: "1rem"}}>
-      <Typography variant='h2' sx={{marginBottom: "1rem"}}>Top 50 Cryptocurrencies</Typography>
+    <div style={{ height: 690, width: '100%', color: 'white', marginTop: "1rem", marginBottom: "1rem" }}>
+      <Typography variant='h2' sx={{ marginBottom: "1rem" }}>Top 50 Cryptocurrencies</Typography>
       <div style={{ height: 'calc(100% - 60px)', width: '100%' }}>
         <DataGrid
           rows={cryptoData}
