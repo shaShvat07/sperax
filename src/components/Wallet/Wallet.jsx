@@ -4,20 +4,18 @@ import {
 	TableBody,
 	TableCell,
 	TableContainer,
-	TableHead,
 	TableRow,
 	Paper,
 	Button,
 	Typography
 } from '@mui/material';
-import axios from 'axios';
 import { ethers } from 'ethers';
 function Wallet() {
 	const [account, setAccount] = useState(null);
 	const [balance, setBalance] = useState(null);
 	const [provider, setProvider] = useState(null);
 	const [network, setNetwork] = useState(null);
-	const [price, setPrice] = useState(null);
+
 	useEffect(() => {
 		if (window.ethereum) {
 			initializeProvider();
@@ -39,29 +37,18 @@ function Wallet() {
 		}
 	}, [provider]);
 
-	const getTokenPrice = async (tokenId) => {
-		try {
-			const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${tokenId}&vs_currencies=usd`);
-			setPrice(response.data[tokenId].usd);
-		} catch (error) {
-			console.error("Error fetching price data:", error);
-			return null;
-		}
-	}
-
 	const initializeProvider = () => {
-		const newProvider = new ethers.providers.Web3Provider(window.ethereum);
+		const newProvider = new ethers.BrowserProvider(window.ethereum);
 		setProvider(newProvider);
 	};
 
 	const connectWallet = async () => {
 		if (provider) {
 			try {
-				await provider.send("eth_requestAccounts", []);
-				const signer = provider.getSigner();
-				const address = await signer.getAddress();
-				setAccount(address);
-				await refreshBalance(address);
+				const accounts = await provider.send("eth_requestAccounts", []);
+				setAccount(accounts[0]);
+				console.log(account);
+				await refreshBalance(account);
 				await getNetwork();
 			} catch (error) {
 				console.error("Failed to connect wallet:", error);
@@ -82,7 +69,7 @@ function Wallet() {
 	const refreshBalance = async (address) => {
 		if (provider) {
 			const balance = await provider.getBalance(address);
-			setBalance(ethers.utils.formatEther(balance));
+			setBalance(ethers.formatEther(balance));
 		}
 	};
 
@@ -102,7 +89,6 @@ function Wallet() {
 	const getNetwork = async () => {
 		if (provider) {
 			const network = await provider.getNetwork();
-			console.log(network);
 			setNetwork(network.name);
 		}
 	};
