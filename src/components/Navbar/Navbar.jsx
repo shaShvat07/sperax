@@ -4,7 +4,6 @@ import { useAuth } from "../../utils/AuthProvider";
 import { Button } from '@mui/material';
 const Navbar = () => {
     const { auth, signOut } = useAuth();
-    // console.log(auth);
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
@@ -16,7 +15,7 @@ const Navbar = () => {
     };
     return (
         <>
-            <div className='w-full h-20 bg-black flex items-center'>
+            <div className='w-full h-20 backdrop-blur-sm fixed z-20 top-0 start-0 flex items-center'>
                 <div className='ml-5 text-white'>
                     Ethreum
                 </div>

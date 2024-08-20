@@ -110,58 +110,68 @@ function Wallet() {
 	return (
 		<>
 			<div className='flex w-full h-min-30'>
-				<Typography sx={{ color: "white", width: "50%", borderRight: "solid 5px" }} variant="h2" align="center">Wallet Information</Typography>
-				{account ? (
-					<TableContainer component={Paper} sx={{ backgroundColor: "black", color: "white", width: "50%" }}>
-						<Table>
-							{/* <TableHead>
+				<div className='flex w-full mt-32'>
+					<Typography sx={{ color: "white", width: "50%", borderRight: "solid 5px" }} variant="h2" align="center">Wallet Information</Typography>
+					{account ? (
+						<TableContainer
+							component={Paper}
+							sx={{
+								backgroundColor: "rgba(0, 0, 0, 0.2)",  // Slightly transparent black
+								color: "white",
+								width: "50%",
+								backdropFilter: "blur(10px)",  // Blurs the background
+								borderRadius: "10px"  // Optional: Adds rounded corners
+							}}>
+							<Table>
+								{/* <TableHead>
 								<TableRow>
 									<TableCell colSpan={2}>
 									</TableCell>
 								</TableRow>
 							</TableHead> */}
-							<TableBody>
-								<TableRow>
-									<TableCell variant="head">
-										<Typography sx={{ color: "white" }} variant="h6">Connected Account</Typography>
-									</TableCell>
-									<TableCell sx={{ color: "white" }}>{account}</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell variant="head">
-										<Typography sx={{ color: "white" }} variant="h6">Balance</Typography>
-									</TableCell>
-									<TableCell sx={{ color: "white" }} >{balance} ETH</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell variant="head">
-										<Typography sx={{ color: "white" }} variant="h6">Current Network</Typography>
-									</TableCell>
-									<TableCell sx={{ color: "white" }}>{network}</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell colSpan={2} align="center">
-										<Button sx={{ color: "white" }} variant="contained" onClick={() => refreshBalance(account)}>
-											Refresh Balance
-										</Button>
-									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell colSpan={2} align="center">
-										<Button sx={{ color: "white" }} variant="contained" color="error" onClick={disconnectWallet}>
-											Disconnect Wallet
-										</Button>
-									</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					</TableContainer>
-				) : (
-					<div className='mt-5 mb-5 w-half ml-auto mr-auto'>
-						<Typography variant="h5" sx={{ marginBottom: "1rem" }}> Looks like you haven't connected your Wallet! </Typography>
-						<Button onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
-					</div>
-				)}
+								<TableBody>
+									<TableRow>
+										<TableCell variant="head">
+											<Typography sx={{ color: "white" }} variant="h6">Connected Account</Typography>
+										</TableCell>
+										<TableCell sx={{ color: "white" }}>{account}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell variant="head">
+											<Typography sx={{ color: "white" }} variant="h6">Balance</Typography>
+										</TableCell>
+										<TableCell sx={{ color: "white" }} >{balance} ETH</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell variant="head">
+											<Typography sx={{ color: "white" }} variant="h6">Current Network</Typography>
+										</TableCell>
+										<TableCell sx={{ color: "white" }}>{network}</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell colSpan={2} align="center">
+											<Button sx={{ color: "white" }} variant="contained" onClick={() => refreshBalance(account)}>
+												Refresh Balance
+											</Button>
+										</TableCell>
+									</TableRow>
+									<TableRow>
+										<TableCell colSpan={2} align="center">
+											<Button sx={{ color: "white" }} variant="contained" color="error" onClick={disconnectWallet}>
+												Disconnect Wallet
+											</Button>
+										</TableCell>
+									</TableRow>
+								</TableBody>
+							</Table>
+						</TableContainer>
+					) : (
+						<div className='mt-5 mb-5 w-half ml-auto mr-auto'>
+							<Typography variant="h5" sx={{ marginBottom: "1rem" }}> Looks like you haven't connected your Wallet! </Typography>
+							<Button onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
+						</div>
+					)}
+				</div>
 			</div>
 		</>
 	);
