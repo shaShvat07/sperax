@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Typography, Switch, FormControlLabel } from '@mui/material';
-import { supabase } from "../../utils/supabase";
+import { Typography } from '@mui/material';
 import WatchlistButton from '../WatchlistButton/WatchlistButton';
 const columns = [
-  { field: 'index', headerName: 'ID', width: 200 },
+  { field: 'index', headerName: 'ID', width: 250 },
   {
     field: 'name',
     headerName: 'Name',
-    width: 200,
+    width: 250,
     renderCell: (params) => (
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img src={params.row.image} alt={params.value} style={{ width: 30, marginRight: 10 }} />
@@ -16,12 +15,12 @@ const columns = [
       </div>
     ),
   },
-  { field: 'symbol', headerName: 'Symbol', width: 200 },
+  { field: 'symbol', headerName: 'Symbol', width: 250 },
   {
     field: 'current_price',
     headerName: 'Price (USD)',
     type: 'number',
-    width: 200,
+    width: 250,
     valueFormatter: (params) => {
       if (params != null) {
         return `$${params.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -33,7 +32,7 @@ const columns = [
     field: 'market_cap',
     headerName: 'Market Cap',
     type: 'number',
-    width: 200,
+    width: 250,
     valueFormatter: (params) => {
       if (params != null) {
         return `${params.toLocaleString()}`;
@@ -44,12 +43,14 @@ const columns = [
   {
     field: 'watchlist',
     headerName: 'Watchlist',
-    width: 200,
+    width: 350,
+    type: 'number',
     renderCell: (params) => (
-      <div>
-          {params.value}
-         <WatchlistButton />
-      </div>
+      <>
+        <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', height: '100%' }}>
+          <WatchlistButton num={params.row.index} />
+        </div>
+      </>
     ),
   },
 ];

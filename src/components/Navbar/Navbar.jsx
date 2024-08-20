@@ -4,7 +4,7 @@ import { useAuth } from "../../utils/AuthProvider";
 import { Button } from '@mui/material';
 const Navbar = () => {
     const { auth, signOut } = useAuth();
-    console.log(auth);
+    // console.log(auth);
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
