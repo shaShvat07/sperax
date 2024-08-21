@@ -36,22 +36,30 @@ The project is structured as follows, ensuring modular and organized management 
 ```bash
 src
     ├───index.css
+    ├───Utils
+    │   ├───AuthProvider
+    │   ├───CachedCryptoData
+    │   ├───ProtectedRoute
+    │   ├───Supabase
+    │   
     ├───Components
-    │   ├───Card
-    │   ├───Dashboard
+    │   ├───CoinsDetailsPage
+    │   ├───CryptoTable
     │   ├───Home
     │   ├───Login
-    │   ├───LandingPage
-    │   ├───Main
+    │   ├───Transaction
+    │   ├───Wallet
     │   ├───Navbar
-    │   ├───PageNotFound
-    │   ├───Sidebar
+    │   ├───Watch
+    │   ├───WatchListButton
     │   ├───SignUp
-    │   ├───TaskModal
-    │   ├───UpdateTaskModal
-    │   ├───App.jsx
-    │   ├───index.js
+    │   ├───WatchlistTable
+    │   ├───index.js   
+    │   
+    │
+    ├───App.jsx   
     └───main.jsx
+    
 ```
 ## Setup and Installation
 
