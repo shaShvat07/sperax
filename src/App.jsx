@@ -2,11 +2,12 @@ import Home from './components/Home/Home'
 import Navbar from './components/Navbar/Navbar'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import AuthProvider from './utils/AuthProvider'
-// import { ProtectedRoute } from './utils/ProtectedRoute'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
+import Transaction from './components/Transaction/Transaction'
 import './App.css'
-
+import CoinDetailsPage from './components/CoinDetailsPage/CoinDetailsPage'
+import WatchlistTable from './components/WatchlistTable/WatchlistTable'
 function App() {
   return (
     <>
@@ -19,9 +20,12 @@ function App() {
             <Route
               path="/"
               element={
-                  <Home />
+                <Home />
               }
             />
+            <Route path="/transaction" element={<Transaction />} />
+            <Route path="/watchlist" element={<WatchlistTable />} />
+            <Route path="/coins/:id" element={<CoinDetailsPage />} />
           </Routes>
         </Router>
       </AuthProvider>
