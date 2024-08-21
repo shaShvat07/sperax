@@ -160,9 +160,9 @@ function Wallet() {
 						</div>
 					</>
 				) : (
-					<div className='mt-5 mb-5 w-half ml-auto mr-auto'>
-						<Typography variant="h5" sx={{ marginBottom: "1rem" }}> Looks like you haven't connected your Wallet! </Typography>
-						<Button onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
+					<div className='w-full flex-col'>
+							<Typography variant="h5" sx={{ marginBottom: "1rem", marginTop: "8rem" }}> Looks like you haven't connected your Wallet! </Typography>
+							<Button onClick={initializeProvider} variant="contained">Connect MetaMask</Button>
 					</div>
 				)}
 			</div>
