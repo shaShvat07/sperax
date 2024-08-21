@@ -2,7 +2,8 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Typography } from '@mui/material';
 import WatchlistButton from '../WatchlistButton/WatchlistButton';
-
+import { Link } from 'react-router-dom';
+import CachedCryptoData from '../../utils/CachedCryptoData';
 const columns = [
   { field: 'index', headerName: 'ID', width: 250 },
   {
@@ -54,39 +55,22 @@ const columns = [
       </>
     ),
   },
+  {
+    field: 'view',
+    headerName: 'View',
+    width: 150,
+    renderCell: (params) => (
+      <Link to={`/coins/${params.row.index}`}>
+        <button style={{color: 'white', cursor: 'pointer', display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
+            Details
+        </button>
+      </Link>
+    ),
+  },
 ];
 
-
-
 export default function CryptoTable() {
-  const [cryptoData, setCryptoData] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-
-  React.useEffect(() => {
-    fetchCryptoData();
-  }, []);
-
-  const fetchCryptoData = async () => {
-    const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false';
-
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      const dataWithIndex = data.map((item, index) => ({
-        ...item,
-        index: index + 1
-      }));
-      setCryptoData(dataWithIndex);
-      setIsLoading(false);
-    } catch (e) {
-      setError('Failed to fetch crypto data. Please try again later.');
-      setIsLoading(false);
-    }
-  };
+  const { cryptoData, isLoading, error } = CachedCryptoData();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
